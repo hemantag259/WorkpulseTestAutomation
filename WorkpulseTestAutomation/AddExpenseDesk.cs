@@ -1,4 +1,5 @@
 ﻿using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -7,10 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+
 
 
 namespace Workpulse_Project
@@ -34,24 +32,26 @@ namespace Workpulse_Project
             
 
             String Bearertokenvalue = "Bearer " + accesstoken;
+            var Taskid = APIHelper.GetTaskId(Bearertokenvalue);
             headerInfo = APIHelper.GetHeaderInfo(Bearertokenvalue);
+            Random rnd = new Random();
+            var amount = rnd.Next(10, 100);
             var endPoint = "https://opsapi.workpulse.com/api/desk/v2/expense?serviceBoardTypeId=1&serviceBoardId=0";
             //string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
             string path = @"E:\Workpulse documents\Automation\WorkpulseTestAutomation\WorkpulseTestAutomation\Models\AddExpense.json";
+            var jsonObject = JObject.Parse(File.ReadAllText(path));
+           
+           
+          
+           jsonObject["taskId"] = Taskid;
+            jsonObject["amount"]= amount;
 
-            //var jsonArray = JArray.Parse(File.ReadAllText(Path.Combine(TestHelper.AssemblyDirectory
-            //  ,
-            //                      path +  @"\Models\AddExpense.json")))
-            //var jsonArray = JArray.Parse(File.ReadAllText(Path.Combine(path, @"Models\AddExpense.json")));
-            //var jsonArray = JArray.Parse(File.ReadAllText(path));
-            var objects = JObject.Parse(File.ReadAllText(path));
-
-            var jsonContent = JsonConvert.SerializeObject(objects);
+            var jsonContent = JsonConvert.SerializeObject(jsonObject);
             var content = new StringContent(jsonContent);
 
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             var response = ServiceHelper.SendRequest(endPoint, headerInfo, HttpMethod.Post, content).Result;
-            Assert.IsTrue(response.IsSuccessStatusCode, "POST end point failed while adding a row in States screen");
+            Assert.IsTrue(response.IsSuccessStatusCode, "POST end point failed while adding a Expense");
             test.Log(Status.Info, "Generation the response");
             try
             {

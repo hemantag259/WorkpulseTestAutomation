@@ -1,0 +1,20 @@
+{
+  "pageNo": 1,
+  "pageSize": 20,
+  "serviceBoardId": 0,
+  "startDate": "06/06/2023",
+  "endDate": "08/05/2023",
+  "locationIds": null,
+  "employeeIds": null,
+  "searchBy": null,
+  "serviceBoardTypeId": 1,
+  "statusIds": null,
+  "scope": 2,
+  "priorityIds": null,
+  "categoryIds": null,
+  "titleIds": null,
+  "maxExpense": null,
+  "minExpense": null,
+  "sortBy": 1,
+  "ascSort": false
+}
