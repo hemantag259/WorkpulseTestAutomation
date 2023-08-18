@@ -12,6 +12,7 @@ using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using RazorEngine.Compilation.ImpromptuInterface;
 using WorkpulseTestAutomation;
+using WorkpulseTestAutomation.Common;
 
 namespace Workpulse_Project
 {

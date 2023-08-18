@@ -1,6 +1,7 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
@@ -8,21 +9,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
-
-
+using WorkpulseTestAutomation.Common;
 
 namespace Workpulse_Project
 {
 
-    public class AddExpenseDesk : BaseTest
+    public class AddDeskTicketandExpense : BaseTest
     {
        
         [Test]
-        public void AddExpenseDeskMethod()
+        public void AddDeskMethod()
         {
             test = null;
             String methodname = TestContext.CurrentContext.Test.MethodName.ToString();
-            test = extent.CreateTest(methodname).Info("Adding Expense to the Desk Ticket");
+            test = extent.CreateTest(methodname).Info("Adding a ticket and Expense to the Desk Ticket");
             Dictionary<string, string> headerInfo;
             //String accesstoken = "f25ce5e741bf0bc28010844a6042a0c0";
             String accesstoken;
@@ -32,8 +32,24 @@ namespace Workpulse_Project
             
 
             String Bearertokenvalue = "Bearer " + accesstoken;
-            var Taskid = APIHelper.GetTaskId(Bearertokenvalue);
             headerInfo = APIHelper.GetHeaderInfo(Bearertokenvalue);
+
+            #region Add a ticket to the desk
+
+            var addticketendpoint = "https://opsapi.workpulse.com/api/desk/ticket";
+            string addticketpath = @"E:\Workpulse documents\Automation\WorkpulseTestAutomation\WorkpulseTestAutomation\Models\AddDeskTicket.json";
+            var addticketjsonObject = JObject.Parse(File.ReadAllText(addticketpath));
+            var addticketjsonContent = JsonConvert.SerializeObject(addticketjsonObject);
+            var addticketcontent = new StringContent(addticketjsonContent);
+
+            addticketcontent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var addticketresponse = ServiceHelper.SendRequest(addticketendpoint, headerInfo, HttpMethod.Post, addticketcontent).Result;
+            Assert.IsTrue(addticketresponse.IsSuccessStatusCode, "POST end point failed while adding a Desk Ticket");
+            #endregion
+
+
+            #region Add a expense to the Task in Desk
+            var Taskid = APIHelper.GetTaskId(Bearertokenvalue);
             Random rnd = new Random();
             var amount = rnd.Next(10, 100);
             var endPoint = "https://opsapi.workpulse.com/api/desk/v2/expense?serviceBoardTypeId=1&serviceBoardId=0";
@@ -45,6 +61,7 @@ namespace Workpulse_Project
           
            jsonObject["taskId"] = Taskid;
             jsonObject["amount"]= amount;
+            
 
             var jsonContent = JsonConvert.SerializeObject(jsonObject);
             var content = new StringContent(jsonContent);
@@ -62,12 +79,13 @@ namespace Workpulse_Project
                 test.Log(Status.Fail, "Test Failed");
 
             }
+            #endregion
 
 
 
 
         }
-       
+
     }
    
 }

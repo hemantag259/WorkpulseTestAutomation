@@ -8,6 +8,7 @@ using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http.Headers;
+using Microsoft.VisualBasic;
 
 namespace Workpulse_Project
 {
@@ -34,8 +35,9 @@ namespace Workpulse_Project
             //                      path +  @"\Models\AddExpense.json")))
             //var jsonArray = JArray.Parse(File.ReadAllText(Path.Combine(path, @"Models\AddExpense.json")));
             //var jsonArray = JArray.Parse(File.ReadAllText(path));
-            var objects = JObject.Parse(File.ReadAllText(path));
 
+            var objects = JObject.Parse(File.ReadAllText(path));
+            objects["endDate"] = DateAndTime.Now.ToString("MM/dd/yyyy");
             var jsonContent = JsonConvert.SerializeObject(objects);
             var content = new StringContent(jsonContent);
 
