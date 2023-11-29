@@ -1,6 +1,6 @@
 {
   "taskId": "taskvalue",
-  "accountHeadId": 7,
+  "accountHeadId": 2,
   "description": "Added amount from the API Postman ",
   "amount": "amountvalue",
   "imageId": null,

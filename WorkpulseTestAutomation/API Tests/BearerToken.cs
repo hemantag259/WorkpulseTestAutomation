@@ -23,7 +23,7 @@ namespace Workpulse_Project
         public static string GenerateBearerToken()
         {
             string bearertokenvalue;
-        var bearerurl = "https://opslogin.workpulse.com/core/connect/token";
+        var bearerurl = "https://devlogin.workpulse.com/core/connect/token";
        
         var client = new HttpClient();
 
@@ -33,12 +33,9 @@ namespace Workpulse_Project
         new KeyValuePair<string, string>("client_id", "app.WorkpulseAudit"),
         new KeyValuePair<string, string>("client_secret","rwVj4Kt6vEFMVWQ2"),
         new KeyValuePair<string, string>("scope", "workpulseApi"),
-        new KeyValuePair<string, string>("acr_values", "tenant:4444"),
+        new KeyValuePair<string, string>("acr_values", "tenant:1111"),
         new KeyValuePair<string, string>("username", "hemant"),
         new KeyValuePair<string, string>("password","Sep@1989"),
-
-
-
 
     };
             var response = client.PostAsync(bearerurl, new FormUrlEncodedContent(data)).GetAwaiter().GetResult();

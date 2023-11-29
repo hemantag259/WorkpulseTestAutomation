@@ -33,7 +33,7 @@ namespace WorkpulseTestAutomation.Common
             extent.AttachReporter(HtmlReporter);
 
             HtmlReporter.Config.DocumentTitle = "Automation Report";
-            HtmlReporter.Config.ReportName = "Test Report";
+            HtmlReporter.Config.ReportName = "Workpulse Automation Report";
             HtmlReporter.Config.Theme = Theme.Dark;
 
 

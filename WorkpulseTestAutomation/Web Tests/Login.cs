@@ -4,6 +4,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +25,20 @@ namespace WorkpulseTestAutomation
             driver = new ChromeDriver(path + @"\drivers\");
             test = null;
             String methodname = TestContext.CurrentContext.Test.MethodName.ToString();
-            test = extent.CreateTest(methodname).Info("Login Test");
+            test = extent.CreateTest(methodname).Info("Automation Test for creation of the Book Task");
 
             driver.Navigate().GoToUrl("https://opssite.workpulse.com/");
-            test.Log(Status.Info, "Navigate to URL");
+            test.Log(Status.Info, "Navigate to OPS URL");
 
             driver.Manage().Window.Maximize();
             Thread.Sleep(5000);
-            /* string connetionString;
+            IWebElement username = driver.FindElement(By.Id("username"));
+            IWebElement password = driver.FindElement(By.Id("password"));
+            IWebElement accessid = driver.FindElement(By.Id("accessid"));
+
+            //Creating connection with database and fetching credentials
+             test.Log(Status.Info, "Creating connection with database and fetching credentials");
+             string connetionString;
              connetionString = @"Data Source=tcp:wp001.database.windows.net;initial catalog=WP-4444-WorkpulseMarketing;user id=wp001;password=Wp5erver2015";
              SqlConnection cnn;
              cnn = new SqlConnection(connetionString);
@@ -42,30 +50,32 @@ namespace WorkpulseTestAutomation
              {
                  da.Fill(testData);
              }
-
-
              var resultRows = testData.Select();
              var usernamedata = resultRows[0]["UserName"].ToString();
              var passworddata = resultRows[0]["Password"].ToString();
-             var accessiddata = resultRows[0]["AccessId"].ToString();*/
+             var accessiddata = resultRows[0]["AccessId"].ToString();
+             username.SendKeys(usernamedata);
+             Thread.Sleep(5000);
+             password.SendKeys(passworddata);
+             Thread.Sleep(5000);
+             accessid.SendKeys(accessiddata);
+             Thread.Sleep(5000);
+             test.Log(Status.Info, "Submitting the login page with Username " + usernamedata);
 
-            IWebElement username = driver.FindElement(By.Id("username"));
-            //username.SendKeys(usernamedata);
+            /*//Manually sending the credetials to the login page
             username.SendKeys("hemant");
             Thread.Sleep(5000);
-            IWebElement password = driver.FindElement(By.Id("password"));
             password.SendKeys("Sep@1989");
-            //password.SendKeys(passworddata);
             Thread.Sleep(5000);
-            IWebElement accessid = driver.FindElement(By.Id("accessid"));
             accessid.SendKeys("4444");
-            //accessid.SendKeys(accessiddata);
-            Thread.Sleep(5000);
-            IWebElement login = driver.FindElement(By.Id("loginbtn"));
-            test.Log(Status.Info, "Login Successful");
-            login.Click();
-            Thread.Sleep(5000);
-            return driver;
+            Thread.Sleep(5000);*/
+
+
+             IWebElement login = driver.FindElement(By.Id("loginbtn"));
+             login.Click();
+             test.Log(Status.Info, "Login Successful into the web application");
+             Thread.Sleep(5000);
+             return driver; 
         }
     }
 }
