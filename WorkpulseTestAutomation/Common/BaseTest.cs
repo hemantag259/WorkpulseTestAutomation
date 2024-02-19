@@ -27,7 +27,7 @@ namespace WorkpulseTestAutomation.Common
             //var path = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory) + @"\Reports") + "..\\..\\..\\"  + "ExtentReport" + DateTime.Now.ToString("_MMddyyyy_hhmmtt") + " .html";
             string path = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
             var combinepath = Path.GetFullPath(Path.Combine(path + @"\Reports\\")) + "ExtentReport.html";
-            //extent = new ExtentReports(path,false);
+          // extent = new ExtentReports(path,false);
             extent = new ExtentReports();
             HtmlReporter = new ExtentV3HtmlReporter(combinepath);
             extent.AttachReporter(HtmlReporter);
