@@ -82,7 +82,7 @@ namespace Workpulse_Project
             IWebElement questiontype = driver.FindElement(By.XPath("//md-select[@id='select_11']"));
             questiontype.Click();
             Thread.Sleep(5000);
-            IWebElement questiontypeselect = driver.FindElement(By.Id("select_option_76"));
+            IWebElement questiontypeselect = driver.FindElement(By.Id("select_option_85"));
             questiontypeselect.Click();
             test.Log(Status.Info, "Selecting the Temparature type Question from the list");
             Thread.Sleep(5000);
