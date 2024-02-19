@@ -35,8 +35,8 @@ namespace Workpulse_Project
             Thread.Sleep(5000);
             IWebElement allapp = driver.FindElement(By.Id("myapps-tab"));
             allapp.Click();
-            test.Log(Status.Info, "Clicking on My App tabs");
-            IWebElement adminapp = driver.FindElement(By.XPath("//*[@id=\"my-apps-row\"]/a[15]/div/div[2]/div/div[1]"));
+            test.Log(Status.Info, "Clicking on My App tabs");   
+            IWebElement adminapp = driver.FindElement(By.XPath("//*[@id=\"my-apps-row\"]/a[8]/div/div[2]/div"));
             adminapp.Click();
             test.Log(Status.Info, "Clicking on Admin app");
             Thread.Sleep(5000);
@@ -79,7 +79,7 @@ namespace Workpulse_Project
             questionclick.Click();
             test.Log(Status.Info, "Selecting the Question from the list");
             Thread.Sleep(5000);
-            IWebElement questiontype = driver.FindElement(By.XPath("//md-select[@id='select_9']"));
+            IWebElement questiontype = driver.FindElement(By.XPath("//md-select[@id='select_11']"));
             questiontype.Click();
             Thread.Sleep(5000);
             IWebElement questiontypeselect = driver.FindElement(By.Id("select_option_76"));
